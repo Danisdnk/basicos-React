@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Producto from './Components/Productos';
+import Carrito from './Components/Carrito';
 function App() {
   //Crear Listado de productos 
   const [productos, guardarProductos] = useState([
@@ -10,7 +11,8 @@ function App() {
     { id: 3, nombre: 'Camisa Node.Js', precio: 80 },
     { id: 4, nombre: 'Camisa Angular', precio: 50 },
   ]);
-
+  //State para carrito de compras
+  const [carrito, agregarProducto] = useState([]);
   const fecha = new Date().getFullYear();
   return (
     <Fragment>
@@ -20,13 +22,22 @@ function App() {
       />
       <h1>Lista de productos</h1>
       {productos.map(producto => (
-        <Producto 
-        key={producto.id}//valor unico
-        producto={producto}/>
+        <Producto
+          key={producto.id}//valor unico
+          producto={producto}
+          productos={productos}
+          carrito={carrito}
+          agregarProducto={agregarProducto} //valor de state
+        />
 
       ))}
+      <Carrito
+        carrito={carrito}
+        agregarProducto={agregarProducto}
+      />
       <Footer
-        fecha={fecha} />
+        fecha={fecha}
+      />
 
     </Fragment>
   );
